@@ -1,0 +1,13 @@
+# TODO: 
+- [ ] 12TET
+	- If the fifths are tuned with an exact frequency ratio of 3:2 (the system of tuning known as [just intonation](https://en.wikipedia.org/wiki/Just_intonation "Just intonation")), this is not the case (the circle does not "close").
+- [ ] Folded state
+	- There will the same notes in diatonic meaning, not semitones on each position onto different turns of the spiral. 
+- [ ] Key signatures
+- [ ] A  things to notice: 
+	- On opposite sides of the circle placed tritons
+		- Can be useful for triton substitutions
+	- Modes are closely related to each other. 
+		- They are placed in order of their brightness. The brightest mode in Major scale is Lydian, the darkest is Locrian
+			- You can clearly see it on the chords diagram
+		- Each time we go to the next mode, we alterate one of its degrees
