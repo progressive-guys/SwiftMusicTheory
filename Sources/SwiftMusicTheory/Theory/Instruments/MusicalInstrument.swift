@@ -7,5 +7,5 @@ public protocol MusicalInstrument: Codable, Sendable, Hashable {
   
   var tonesRange: ClosedRange<Tone> { get }
   
-  func pitch(at: Position) -> Pitch
+  func pitch(at: Position) -> Pitch?
 }

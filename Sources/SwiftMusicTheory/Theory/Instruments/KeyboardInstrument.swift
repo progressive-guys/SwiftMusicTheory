@@ -8,8 +8,8 @@ public struct KeyboardInstrument<Intonation: Temperament>: MusicalInstrument {
     self.tonesRange = tonesRange
   }
   
-  public func pitch(at midiNote: MIDINote) -> Pitch {
-    return Pitch(
+  public func pitch(at midiNote: MIDINote) -> Pitch? {
+    Pitch(
       temperament.chromaticScale[Int(midiNote) % temperament.octaveSubdivisions],
       // MIDI counts semitones above C-1 (note 0) so we add one octave
       Octave(integerLiteral: Int(midiNote) / temperament.octaveSubdivisions - 1)
