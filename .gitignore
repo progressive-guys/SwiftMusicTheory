@@ -40,3 +40,9 @@ Package.resolved
 
 
 .vscode/settings.json
+
+# Local Tuist files
+*.xcodeproj/
+*.xcworkspace/
+Derived/
+Configuration/Signing.local.xcconfig
