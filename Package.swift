@@ -1,10 +1,10 @@
-// swift-tools-version: 5.6
-// The swift-tools-version declares the minimum version of Swift required to build this package.
+// swift-tools-version: 5.9
 
 import PackageDescription
 
 let package = Package(
   name: "SwiftMusicTheory",
+  platforms: [.iOS(.v16), .macOS(.v13), .visionOS(.v1)],
   products: [
     .library(
       name: "SwiftMusicTheory",
@@ -13,11 +13,14 @@ let package = Package(
   ],
   targets: [
     .target(
-      name: "SwiftMusicTheory"
+      name: "SwiftMusicTheory",
+      path: "SwiftMusicTheory",
+      sources: ["Sources"]
     ),
     .testTarget(
-      name: "SwiftMusicTheoryTests",
-      dependencies: ["SwiftMusicTheory"]
+      name: "SwiftMusicTheoryUnitTests",
+      dependencies: ["SwiftMusicTheory"],
+      path: "UnitTests"
     ),
   ]
 )
