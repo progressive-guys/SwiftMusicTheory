@@ -1,5 +1,7 @@
 # SwiftMusicTheory
 
+[![Tests](https://github.com/progressive-guys/SwiftMusicTheory/actions/workflows/package-contract.yml/badge.svg?branch=main&event=push)](https://github.com/progressive-guys/SwiftMusicTheory/actions/workflows/package-contract.yml)
+
 ![Version](https://img.shields.io/github/v/release/modality-lab/SwiftMusicTheory)
 ![Swift](https://img.shields.io/badge/Swift-5.6+-orange?logo=swift)
 ![Platforms](https://img.shields.io/badge/Platforms-iOS%20%7C%20macOS%20%7C%20visionOS-blue)

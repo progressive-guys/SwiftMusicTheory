@@ -1,0 +1,27 @@
+name: Package contract
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+      - name: Tool versions
+        run: |
+          xcodebuild -version
+          swift --version
+      - name: Package checks
+        run: |
+          swift package resolve
+          swift test
+          swift build -c release
