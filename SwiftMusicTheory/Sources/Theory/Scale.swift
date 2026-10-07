@@ -126,7 +126,8 @@ public extension Scale {
 
   /// Retruns which Function could be in the scale on the given interval
   ///
-  /// For example, if you are willing to know, what Function could be in the Major Diatonic on minor third, it will return b3, even if there are no actually b3 in the Major scale
+  /// For example, if you are willing to know, what Function could be in the Major Diatonic on minor third, it will return b3,
+  /// even if there are no actually b3 in the Major scale
   /// - Parameter interval: Interval to compare agains
   func chromaticFunction(at interval: Interval) -> Scale.Function? {
     formula.chromaticFunction(at: interval)

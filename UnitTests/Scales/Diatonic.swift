@@ -32,7 +32,11 @@ final class DiatonicTests: XCTestCase {
 
   func testFunctions() {
     XCTAssertTrue(diatonic.degrees.map(\.function) == [.tonic(), .second(), .third(), .fourth(), .fifth(), .sixth(), .seventh()])
-    XCTAssertTrue(diatonic.shifted(at: 5).degrees.map(\.function) == [.tonic(), .second(), .third(.flat), .fourth(), .fifth(), .sixth(.flat), .seventh(.flat)])
+    XCTAssertTrue(
+      diatonic.shifted(at: 5).degrees.map(\.function) == [
+        .tonic(), .second(), .third(.flat), .fourth(), .fifth(), .sixth(.flat), .seventh(.flat)
+      ]
+    )
     XCTAssertTrue(
       diatonic.functions(comparedTo: .diatonic.shifted(at: 5)) ==
       [.tonic(), .second(), .third(.sharp), .fourth(), .fifth(), .sixth(.sharp), .seventh(.sharp)]
