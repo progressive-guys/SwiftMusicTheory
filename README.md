@@ -3,7 +3,7 @@
 [![Tests](https://github.com/progressive-guys/SwiftMusicTheory/actions/workflows/package-contract.yml/badge.svg?branch=main&event=push)](https://github.com/progressive-guys/SwiftMusicTheory/actions/workflows/package-contract.yml)
 
 ![Version](https://img.shields.io/github/v/release/modality-lab/SwiftMusicTheory)
-![Swift](https://img.shields.io/badge/Swift-5.6+-orange?logo=swift)
+![Swift](https://img.shields.io/badge/Swift-5.9+-orange?logo=swift)
 ![Platforms](https://img.shields.io/badge/Platforms-iOS%20%7C%20macOS%20%7C%20visionOS-blue)
 ![SPM](https://img.shields.io/badge/SPM-compatible-brightgreen)
 ![License](https://img.shields.io/github/license/modality-lab/SwiftMusicTheory)
@@ -47,8 +47,8 @@ let c: Note = .c
 let dFlat = c + .second(.minor)
 let d = c + .second(.major)
 
-#expect("\(c.sharp().sharp())" == "C♯♯")
-#expect("\(Note.g.flat())" == "G♭")
+assert("\(c.sharp().sharp())" == "C♯♯")
+assert("\(Note.g.flat())" == "G♭")
 ```
 
 - Calculate enharmonisms: 
@@ -86,11 +86,11 @@ print(Interval.third(.diminished(times: 2)).shortTitle) // Prints "dd3"
 
 - Transpose notes with  `func transposed(by interval: Interval, direction: VerticalDirection = .up) -> Note ` or just use `+` and `-` operators:
 ```swift
-#expect(Note.a.flat() + .sixth(.minor) == .f.flat())
+assert(Note.a.flat() + .sixth(.minor) == .f.flat())
 ```
 - Sum intervals
 ```swift
-#expect(.second(.major) + .third(.major) == .fourth(.augmented()))
+assert(.second(.major) + .third(.major) == .fourth(.augmented()))
 ```
 - Distinct perfect/imperfect and simple/compound Intervals
 ```swift
@@ -101,8 +101,8 @@ public enum Interval: Sendable {
 ```
 - Inverse intervals:
 ```swift
-#expect(.second(.major).inverted == .seventh(.minor))
-#expect(.fifth(.augmented()).inverted == .fourth(.diminished()))
+assert(.second(.major).inverted == .seventh(.minor))
+assert(.fifth(.augmented()).inverted == .fourth(.diminished()))
 ```
 
 ## **Scales and Modes**
@@ -135,7 +135,7 @@ Scale(
 ### Easily calculate:
 - Scale modes formulas
 ```swift
-#expect(
+assert(
   diatonic.mode(at: 6).formula ==
   [.second(.major), .second(.minor), .second(.major), .second(.major), .second(.minor), .second(.major), .second(.major)]
 )
@@ -143,16 +143,16 @@ Scale(
 
 - Scale degrees compared to diatonic or to specified scale:
 ```swift
-#expect(diatonic.degrees() == [.tonic(), .second(), .third(), .fourth(), .fifth(), .sixth(), .seventh()])
-#expect(diatonic.mode(at: 6).degrees() == [.tonic(), .second(), .third(.flat), .fourth(), .fifth(), .sixth(.flat), .seventh(.flat)])
+assert(diatonic.degrees() == [.tonic(), .second(), .third(), .fourth(), .fifth(), .sixth(), .seventh()])
+assert(diatonic.mode(at: 6).degrees() == [.tonic(), .second(), .third(.flat), .fourth(), .fifth(), .sixth(.flat), .seventh(.flat)])
 
-#expect(diatonic.degrees(comparedTo: .diatonic.mode(at: 6)) == [.tonic(), .second(), .third(.sharp), .fourth(), .fifth(), .sixth(.sharp), .seventh(.sharp)])
+assert(diatonic.degrees(comparedTo: .diatonic.mode(at: 6)) == [.tonic(), .second(), .third(.sharp), .fourth(), .fifth(), .sixth(.sharp), .seventh(.sharp)])
 ```
 
 - All triads in the scale or its modes
 ```swift
-#expect(Scale.diatonic.triads == [.major, .minor, .minor, .major, .major, .minor, .diminished])
-#expect(Scale.diatonic.mode(at: 6).triads == [.minor, .diminished, .major, .minor, .minor, .major, .major])
+assert(Scale.diatonic.triads == [.major, .minor, .minor, .major, .major, .minor, .diminished])
+assert(Scale.diatonic.mode(at: 6).triads == [.minor, .diminished, .major, .minor, .minor, .major, .major])
 ```
 
 - Parallel and relative modes
@@ -165,15 +165,15 @@ print(cMajor.relativeMode(at: 6)) // Prints "A Minor"
 - All notes in the given mode
 ```swift
 let cWholeTone = Mode(root: .c, scale: .wholeTone)
-#expect(cWholeTone.notes == [.c, .d, .e, .f.sharp(), .g.sharp(), .a.sharp()])
-#expect(cWholeTone.relativeMode(at: .e)?.notes == [.e, .f.sharp(), .g.sharp(), .a.sharp(), .c, .d])
-#expect(cWholeTone.parallelMode(at: 2).notes == [.c, .d, .e, .f.sharp(), .g.sharp(), .b.flat()])
+assert(cWholeTone.notes == [.c, .d, .e, .f.sharp(), .g.sharp(), .a.sharp()])
+assert(cWholeTone.relativeMode(at: .e)?.notes == [.e, .f.sharp(), .g.sharp(), .a.sharp(), .c, .d])
+assert(cWholeTone.parallelMode(at: 2).notes == [.c, .d, .e, .f.sharp(), .g.sharp(), .b.flat()])
 ```
 
 - If you ever wondered why you will ever need double (or triple) sharps, you can meditate on this block of code :)
 ```swift
 let bSharpWholeTone = Mode(root: .b.sharp(), scale: .wholeTone)
-#expect(bSharpWholeTone.notes == [.b.sharp(), .c.sharp(2), .d.sharp(2), .e.sharp(2), .f.sharp(3), .g.sharp(3)])
+assert(bSharpWholeTone.notes == [.b.sharp(), .c.sharp(2), .d.sharp(2), .e.sharp(2), .f.sharp(3), .g.sharp(3)])
 ```
 
 ##  **Utilities**
@@ -188,7 +188,9 @@ extension Pitch {
 ```
 
 # **Tests**
-A lot of tests can be found at Tests/ folder written on new [Swift Testing](https://github.com/apple/swift-testing) library
+Tests use XCTest and are in `UnitTests/`. Swift 5.9 or later is required.
+
+CI runs `swift package resolve`, `swift test` and `swift build -c release` with Xcode 15.2 (Swift 5.9), Xcode 16.2 (Swift 6.0), Xcode 16.3 (Swift 6.1) and the latest stable Xcode.
 Feel free to explore them for better understanding of the main concepts in the music theory
 
 # **Roadmap**
