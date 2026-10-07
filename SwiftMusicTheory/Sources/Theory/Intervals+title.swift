@@ -21,14 +21,14 @@ extension Interval {
   }
 }
 
-extension Interval: Interval.Quality {
+fileprivate protocol IntervalQuality {
+  var title: String { get }
+  var shortTitle: String { get }
+}
 
-  fileprivate protocol Quality {
-    var title: String { get }
-    var shortTitle: String { get }
-  }
+extension Interval: IntervalQuality {
 
-  fileprivate var quality: Interval.Quality {
+  fileprivate var quality: IntervalQuality {
     switch self {
     case .perfect(_, let quality, _): quality
     case .imperfect(_, let quality, _): quality
@@ -60,7 +60,7 @@ public extension Interval.Imperfect {
   }
 }
 
-extension Interval.Perfect.Quality: Interval.Quality {
+extension Interval.Perfect.Quality: IntervalQuality {
 
   public var title: String {
     switch self {
@@ -85,7 +85,7 @@ extension Interval.Perfect.Quality: Interval.Quality {
   }
 }
 
-extension Interval.Imperfect.Quality: Interval.Quality {
+extension Interval.Imperfect.Quality: IntervalQuality {
 
   public var title: String {
     switch self {
