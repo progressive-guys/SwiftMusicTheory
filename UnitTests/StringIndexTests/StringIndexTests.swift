@@ -1,22 +1,22 @@
 import SwiftMusicTheory
-import Testing
+import XCTest
 
-struct StringIndexTests {
-  @Test(arguments: [0, 1, 5])
-  func acceptsNonNegativeValues(_ rawValue: Int) {
-    #expect(StringInstrument.StringIndex(rawValue: rawValue)?.rawValue == rawValue)
+final class StringIndexTests: XCTestCase {
+  func testAcceptsNonNegativeValues() {
+    for rawValue in [0, 1, 5] {
+      XCTAssertTrue(StringInstrument.StringIndex(rawValue: rawValue)?.rawValue == rawValue)
+    }
   }
 
-  @Test
-  func rejectsNegativeValueAndValidatesInstrumentBounds() throws {
+  func testRejectsNegativeValueAndValidatesInstrumentBounds() throws {
     let instrument = StringInstrument()
-    let valid = try #require(StringInstrument.StringIndex(rawValue: 5))
-    let invalid = try #require(StringInstrument.StringIndex(rawValue: 6))
+    let valid = try XCTUnwrap(StringInstrument.StringIndex(rawValue: 5))
+    let invalid = try XCTUnwrap(StringInstrument.StringIndex(rawValue: 6))
 
-    #expect(StringInstrument.StringIndex(rawValue: -1) == nil)
-    #expect(instrument.contains(valid))
-    #expect(!instrument.contains(invalid))
-    #expect(instrument.pitch(at: (stringIndex: valid, fret: 0)) != nil)
-    #expect(instrument.pitch(at: (stringIndex: invalid, fret: 0)) == nil)
+    XCTAssertTrue(StringInstrument.StringIndex(rawValue: -1) == nil)
+    XCTAssertTrue(instrument.contains(valid))
+    XCTAssertTrue(!instrument.contains(invalid))
+    XCTAssertTrue(instrument.pitch(at: (stringIndex: valid, fret: 0)) != nil)
+    XCTAssertTrue(instrument.pitch(at: (stringIndex: invalid, fret: 0)) == nil)
   }
 }

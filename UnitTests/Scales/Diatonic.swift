@@ -1,55 +1,55 @@
-import Testing
+import XCTest
 import SwiftMusicTheory
 import Foundation
 
-struct DiatonicTests {
+final class DiatonicTests: XCTestCase {
 
   let diatonic = Scale.diatonic
 
-  @Test func triads() {
-    #expect(diatonic.degrees.flatMap { $0.triads } == [.major, .minor, .minor, .major, .major, .minor, .diminished])
-    #expect(diatonic.shifted(at: 7).degrees.flatMap { $0.triads } == [.major, .minor, .minor, .major, .major, .minor, .diminished])
+  func testTriads() {
+    XCTAssertTrue(diatonic.degrees.flatMap { $0.triads } == [.major, .minor, .minor, .major, .major, .minor, .diminished])
+    XCTAssertTrue(diatonic.shifted(at: 7).degrees.flatMap { $0.triads } == [.major, .minor, .minor, .major, .major, .minor, .diminished])
 
-    #expect(diatonic.shifted(at: 5).degrees.flatMap { $0.triads } == [.minor, .diminished, .major, .minor, .minor, .major, .major])
+    XCTAssertTrue(diatonic.shifted(at: 5).degrees.flatMap { $0.triads } == [.minor, .diminished, .major, .minor, .minor, .major, .major])
   }
 
-  @Test func modesFormulas() {
-    #expect(
+  func testModesFormulas() {
+    XCTAssertTrue(
       diatonic.shifted(at: 3).degrees.map(\.intervalFromPrevious) ==
       [.second(.major), .second(.major), .second(.major), .second(.minor), .second(.major), .second(.major), .second(.minor)]
     )
 
-    #expect(
+    XCTAssertTrue(
       diatonic.degrees.map(\.intervalFromPrevious) ==
       [.second(.major), .second(.major), .second(.minor), .second(.major), .second(.major), .second(.major), .second(.minor)]
     )
 
-    #expect(
+    XCTAssertTrue(
       diatonic.shifted(at: 5).degrees.map(\.intervalFromPrevious) ==
       [.second(.major), .second(.minor), .second(.major), .second(.major), .second(.minor), .second(.major), .second(.major)]
     )
   }
 
-  @Test func functions() {
-    #expect(diatonic.degrees.map(\.function) == [.tonic(), .second(), .third(), .fourth(), .fifth(), .sixth(), .seventh()])
-    #expect(diatonic.shifted(at: 5).degrees.map(\.function) == [.tonic(), .second(), .third(.flat), .fourth(), .fifth(), .sixth(.flat), .seventh(.flat)])
-    #expect(
+  func testFunctions() {
+    XCTAssertTrue(diatonic.degrees.map(\.function) == [.tonic(), .second(), .third(), .fourth(), .fifth(), .sixth(), .seventh()])
+    XCTAssertTrue(diatonic.shifted(at: 5).degrees.map(\.function) == [.tonic(), .second(), .third(.flat), .fourth(), .fifth(), .sixth(.flat), .seventh(.flat)])
+    XCTAssertTrue(
       diatonic.functions(comparedTo: .diatonic.shifted(at: 5)) ==
       [.tonic(), .second(), .third(.sharp), .fourth(), .fifth(), .sixth(.sharp), .seventh(.sharp)]
     )
-    #expect(
+    XCTAssertTrue(
       diatonic.functions(comparedTo: diatonic.shifted(at: 5)) ==
       [.tonic(), .second(), .third(.sharp), .fourth(), .fifth(), .sixth(.sharp), .seventh(.sharp)]
     )
   }
 
-  @Test func degree() {
-    #expect(diatonic.chromaticFunction(at: .octave()) == .tonic())
-    #expect(diatonic.chromaticFunction(at: .unison().octaves(1)) == .tonic())
-    #expect(diatonic.chromaticFunction(at: .second(.major).octaves(1)) == .second())
-    #expect(diatonic.chromaticFunction(at: .second(.augmented()).octaves(1)) == .second(.sharp))
-    #expect(diatonic.chromaticFunction(at: .second(.augmented(times: 2)).octaves(1)) == .second(.sharpened(times: 2)))
-    #expect(diatonic.chromaticFunction(at: .fifth(.augmented(times: 2)).octaves(3)) == .fifth(.sharpened(times: 2)))
-    #expect(diatonic.shifted(at: 5).chromaticFunction(at: .fifth(.augmented(times: 2)).octaves(3)) == .fifth(.sharpened(times: 2)))
+  func testDegree() {
+    XCTAssertTrue(diatonic.chromaticFunction(at: .octave()) == .tonic())
+    XCTAssertTrue(diatonic.chromaticFunction(at: .unison().octaves(1)) == .tonic())
+    XCTAssertTrue(diatonic.chromaticFunction(at: .second(.major).octaves(1)) == .second())
+    XCTAssertTrue(diatonic.chromaticFunction(at: .second(.augmented()).octaves(1)) == .second(.sharp))
+    XCTAssertTrue(diatonic.chromaticFunction(at: .second(.augmented(times: 2)).octaves(1)) == .second(.sharpened(times: 2)))
+    XCTAssertTrue(diatonic.chromaticFunction(at: .fifth(.augmented(times: 2)).octaves(3)) == .fifth(.sharpened(times: 2)))
+    XCTAssertTrue(diatonic.shifted(at: 5).chromaticFunction(at: .fifth(.augmented(times: 2)).octaves(3)) == .fifth(.sharpened(times: 2)))
   }
 }

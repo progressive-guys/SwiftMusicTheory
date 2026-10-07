@@ -1,21 +1,21 @@
-import Testing
+import XCTest
 import SwiftMusicTheory
 import Foundation
 
-struct DiminishedTests {
+final class DiminishedTests: XCTestCase {
 
   let diminished = Scale.diminished
 
-  @Test func triads() {
-    
+  func testTriads() {
+
   }
 
-  @Test func degrees() {
-    #expect(
+  func testDegrees() {
+    XCTAssertTrue(
       Scale.diminished.functions() ==
       [.tonic(), .second(), .third(.flat), .fourth(), .fourth(.sharp), .fifth(.sharp), .sixth(), .seventh()]
     )
-    #expect(
+    XCTAssertTrue(
       Scale.diminished.shifted(at: 1).functions() ==
       [.tonic(), .second(.flat), .third(.flat), .third(), .fourth(.sharp), .fifth(), .sixth(), .seventh(.flat)]
     )
