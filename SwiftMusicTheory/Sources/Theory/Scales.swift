@@ -11,9 +11,9 @@ public extension Scale.Formula {
 }
 
 public extension Scale {
-  
+
   static let diatonic: Scale = Scale(name: "Diatonic", formula: .diatonic)
-  
+
   static let pentatonic: Scale = Scale(
     name: "Pentatonic",
     formula: Formula([
@@ -24,7 +24,7 @@ public extension Scale {
       Formula.Step(.third(.minor), "Blues minor"),
     ])
   )
-  
+
   static let wholeTone: Scale = Scale(
     name: "Whole Tone",
     formula: Formula([
@@ -36,7 +36,7 @@ public extension Scale {
       Formula.Step(.third(.diminished()), "Whole tone"),
     ])
   )
-  
+
   static let diminished: Scale = Scale(
     name: "Diminished",
     formula: Formula([
@@ -50,7 +50,7 @@ public extension Scale {
       Formula.Step(.second(.minor), "Inv. dim"),
     ])
   )
-  
+
   static let augmented: Scale = Scale(
     name: "Augmented",
     formula: Formula([
@@ -62,7 +62,7 @@ public extension Scale {
       Formula.Step(.second(.minor), "Inv. aug"),
     ])
   )
-  
+
   static let harmonicMajor: Scale = Scale(
     name: "Harmonic Major",
     formula: Formula([
@@ -75,7 +75,7 @@ public extension Scale {
       Formula.Step(.second(.minor), "Loc \(Accidental.flattened(times: 2))7")
     ])
   )
-    
+
   static let doubleHarmonicMajor: Scale = Scale(
     name: "Double Harmonic Major",
     formula: Formula([
@@ -88,7 +88,7 @@ public extension Scale {
       Formula.Step(.second(.minor), "Loc \(Accidental.flattened(times: 2))3 \(Accidental.flattened(times: 2))7")
     ])
   )
-  
+
   static let harmonicMinor: Scale = Scale(
     name: "Harmonic Minor",
     formula: Formula([
@@ -101,7 +101,7 @@ public extension Scale {
       Scale.Formula.Step(.second(.minor), "Super Loc \(Accidental.flattened(times: 2))7"),
     ])
   )
-  
+
   static let melodicMinor: Scale = Scale(
     name: "Melodic Minor",
     formula: Formula([

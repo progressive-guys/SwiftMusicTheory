@@ -7,9 +7,9 @@ public struct StringInstrument: MusicalInstrument {
   // MARK: Config
   public let fretsCount: Int
   public let temperament: EqualTemperament
-  
+
   public let tuning: Tuning
-  
+
   public init(
     tuning: Tuning = .standard6String,
     temperament: EqualTemperament = EqualTemperament._12ET440,
@@ -23,15 +23,15 @@ public struct StringInstrument: MusicalInstrument {
   public func pitch(at position: (string: StringInstrument.String, fret: Fret)) -> Pitch {
     temperament.pitch(from: tuning[position.string - 1], shiftedBySubdivisions: position.fret)
   }
-  
+
   public var tonesRange: ClosedRange<Tone> {
     minTone...maxTone
   }
-  
+
   private var minTone: Tone {
     temperament.tone(for: pitch(at: (string: tuning.count, fret: 0)))
   }
-  
+
   private var maxTone: Tone {
     temperament.tone(for: pitch(at: (string: 1, fret: fretsCount)))
   }
@@ -52,7 +52,7 @@ public extension StringInstrument.Tuning {
       Note.e.octave(.great)
     ]
   }
-  
+
   static var standard7String: StringInstrument.Tuning {
     [
       Note.e.octave(.oneLine),
@@ -64,7 +64,7 @@ public extension StringInstrument.Tuning {
       Note.b.octave(.contra),
     ]
   }
-  
+
   static var standard8String: StringInstrument.Tuning {
     [
       Note.e.octave(.oneLine),
@@ -77,7 +77,7 @@ public extension StringInstrument.Tuning {
       Note.f.sharp().octave(.contra),
     ]
   }
-  
+
   static var dropE8String: StringInstrument.Tuning {
     var dropD = standard8String
     dropD[7] = Note.e.octave(.contra)
@@ -89,7 +89,7 @@ public extension StringInstrument.Tuning {
     dropD[5] = Note.d.octave(.great)
     return dropD
   }
-  
+
   static var standard4StringBass: StringInstrument.Tuning {
     [
       Note.g.octave(.small),
@@ -98,7 +98,7 @@ public extension StringInstrument.Tuning {
       Note.e.octave(.great)
     ]
   }
-  
+
   static var standard5StringBass: StringInstrument.Tuning {
     [
       Note.g.octave(.small),

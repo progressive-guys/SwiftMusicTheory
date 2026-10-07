@@ -1,5 +1,5 @@
 public enum Octave: Int, CaseIterable, Sendable, Codable {
-  
+
   case subcontra = 0
   case contra = 1
   case great
@@ -16,7 +16,7 @@ extension Octave {
   public static var largest: Octave {
     Octave.allCases.last ?? .subcontra
   }
-  
+
   public static var smallest: Octave {
     Octave.allCases.first ?? .subcontra
   }
@@ -26,13 +26,13 @@ extension Octave: Strideable {
   public func distance(to other: Octave) -> Int {
     other.rawValue - rawValue
   }
-  
+
   public func advanced(by n: Int) -> Octave {
     Octave(rawValue: rawValue + n) ?? ((rawValue + n > Octave.allCases.count) ? .largest : .smallest)
   }
 }
 extension Octave: Comparable {
-  
+
   public static func < (lhs: Octave, rhs: Octave) -> Bool {
     lhs.rawValue < rhs.rawValue
   }

@@ -23,7 +23,7 @@ public enum Triad: Sendable, CaseIterable {
     case .augmented: "A"
     }
   }
-  
+
   public var title: String {
     switch self {
     case .major: return ""

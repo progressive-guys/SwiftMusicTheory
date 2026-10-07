@@ -12,7 +12,7 @@ public struct Mode: Sendable {
   public var parallelModes: [Mode] {
     scale.degrees.indices.map(parallelMode)
   }
-  
+
   public var relativeModes: [Mode] {
     notes.compactMap(relativeMode)
   }

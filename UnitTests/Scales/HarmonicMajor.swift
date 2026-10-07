@@ -15,7 +15,6 @@ final class HarmonicMajorTests: XCTestCase {
     XCTAssertTrue(scale.shifted(at: 7).functions() == [.tonic(), .second(), .third(), .fourth(), .fifth(), .sixth(.flat), .seventh()])
   }
 
-
   func testTriads() {
     XCTAssertTrue(scale.degrees.flatMap { $0.triads } == [.major, .diminished, .minor, .minor, .major, .augmented, .diminished])
   }

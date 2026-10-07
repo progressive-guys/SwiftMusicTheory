@@ -74,7 +74,7 @@ extension Interval {
 
   public var diatonicIndex: Int {
     switch self {
-    case .perfect(let interval, _, _): 
+    case .perfect(let interval, _, _):
       interval.rawValue + octaves * Imperfect.seventh.rawValue
     case .imperfect(let interval, _, _):
       interval.rawValue + octaves * Imperfect.seventh.rawValue

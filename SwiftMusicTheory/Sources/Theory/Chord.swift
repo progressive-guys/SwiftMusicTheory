@@ -14,7 +14,7 @@ public struct Chord: Sendable, Equatable, Hashable {
 }
 
 extension Chord: CustomStringConvertible {
-  
+
   public var description: String {
     "\(root)\(triad.title)"
   }

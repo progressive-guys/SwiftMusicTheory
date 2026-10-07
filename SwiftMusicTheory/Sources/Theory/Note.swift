@@ -103,7 +103,7 @@ extension Note.Name: Codable {
     var container = encoder.singleValueContainer()
     try container.encode(title)
   }
-  
+
   public init(from decoder: Decoder) throws {
     let container = try decoder.singleValueContainer()
     let title = try container.decode(String.self)

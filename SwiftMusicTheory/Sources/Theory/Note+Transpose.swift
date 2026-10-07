@@ -1,9 +1,9 @@
 extension Note {
-  
+
   public func isEnharmonic(to note: Note) -> Bool {
     note.semitonesNormalized == self.semitonesNormalized
   }
-  
+
   public var semitonesNormalized: Int {
     (diatonicInterval.semitonesCount() + Interval.octave().semitonesCount()) % Interval.octave().semitonesCount()
   }
@@ -48,7 +48,7 @@ extension Note {
   public func sequence(length: Int, intervalToMove: Interval = .fifth()) -> [Note] {
     var notes = [self]
     for noteIndex in (1..<length) {
-      notes.append(notes[noteIndex-1] + intervalToMove)
+      notes.append(notes[noteIndex - 1] + intervalToMove)
       }
     return notes
   }

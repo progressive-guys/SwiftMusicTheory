@@ -4,6 +4,6 @@ public extension Sequence {
     reduce(into: [:]) { resultDictionary, element in
       let (key, value) = producer(element)
       resultDictionary[key] = value
-    }  
+    }
   }
 }

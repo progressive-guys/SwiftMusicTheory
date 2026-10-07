@@ -8,22 +8,22 @@ public extension Scale {
         self.shortName = shortName
         self.modeNames = modeNames.isEmpty ? [shortName] : modeNames
       }
-      
+
       fileprivate let interval: Interval
       fileprivate let shortName: String
       fileprivate let modeNames: [String]
     }
-    
+
     fileprivate let steps: [Step]
     fileprivate let intervalsFromRoot: [Interval]
-    
+
     public init(_ steps: [Step]) {
       let intervals = steps.map(\.interval)
-      
+
       if !intervals.isOctaveWide {
         logWarning("Scale must be an octave wide: \(intervals)")
       }
-      
+
       self.intervalsFromRoot = intervals
         .dropLast()
         .enumerated()
@@ -37,7 +37,7 @@ public extension Scale {
 }
 
 public struct Scale: Sendable {
-  
+
   public enum `Type`: Int, Sendable, Hashable {
     case pentatonic = 5
     case hexatonic = 6
@@ -48,22 +48,22 @@ public struct Scale: Sendable {
   }
 
   public struct Degree: Sendable, Hashable {
-    
+
     /// Function of the degree relative to the diatonic
     public let function: Function
-    
+
     /// Short title of the mode, that can be build on the current degree
     public let shortName: String
-    
+
     /// Titles of the mode
     public let modeNames: [String]
-    
+
     /// Interval of the degree relative to the tonic of the scale
     public let intervalFromRoot: Interval
-    
+
     /// Interval of the degree relative to the tonic of the scale
     public let intervalFromPrevious: Interval
-    
+
     /// Triads placed on the current scale degree
     public let triads: [Triad]
   }
@@ -72,13 +72,13 @@ public struct Scale: Sendable {
   public let degrees: [Degree]
   public let type: `Type`
   fileprivate let formula: Formula
-  
+
   public var functions: [Function] { degrees.map(\.function) }
 
   public init(name: String, formula: Formula) {
     self.name = name
     self.formula = formula
-    
+
     let intervals = formula.steps.map(\.interval)
     let degrees = formula.steps
       .enumerated()
@@ -93,14 +93,14 @@ public struct Scale: Sendable {
           triads: intervals.triads(at: index)
         )
       }
-    
+
     self.degrees = degrees
     self.type = `Type`(rawValue: degrees.count) ?? .unknown
   }
 }
 
 public extension Scale {
-  
+
   /// Shift scale by certain amount of steps
   ///
   /// - Parameter shift: Steps to shift
@@ -109,7 +109,7 @@ public extension Scale {
   func shifted(at shift: Int) -> Scale {
     Scale(name: name, formula: Formula(formula.steps.shifted(by: shift, in: .left)))
   }
-  
+
   /// Scale build on certain function
   ///
   /// - Parameter function: The degree to build scale from
@@ -119,10 +119,10 @@ public extension Scale {
       logWarning("There is no \(function) in \(self.name). Functions: \(functions)")
       return nil
     }
-    
+
     return shifted(at: functionIndex)
   }
-  
+
   /// Retruns which Function could be in the scale on the given interval
   ///
   /// For example, if you are willing to know, what Function could be in the Major Diatonic on minor third, it will return b3, even if there are no actually b3 in the Major scale
@@ -130,7 +130,7 @@ public extension Scale {
   func chromaticFunction(at interval: Interval) -> Scale.Function? {
     formula.chromaticFunction(at: interval)
   }
-  
+
   /// Calculates the scale degrees by comparing the current scale to the given scale.
   /// For example, for a minor scale compared to a major scale, it returns [1, 2, b3, 4, 5, b6, b7].
   ///
@@ -143,7 +143,7 @@ public extension Scale {
           logWarning("There is no relative degree for: \(interval) in comparative scale: \(comparative))")
           return nil
         }
-        
+
         return degree
       }
   }
