@@ -9,12 +9,22 @@ extension Note {
   }
 
   public func transposed(by interval: Interval, direction: VerticalDirection = .up) -> Note {
-    let cMajorRalativeFunction = Scale.diatonic.chromaticFunction(at: diatonicInterval + (direction == .up ? interval : interval.inverted))!
+    guard let cMajorRalativeFunction = Scale.diatonic.chromaticFunction(
+      at: diatonicInterval + (direction == .up ? interval : interval.inverted)
+    ) else { return self }
     return Note(from: cMajorRalativeFunction)
   }
 
   private init(from cMajorFunction: Scale.Function) {
-    self.name = Note.Name(rawValue: cMajorFunction.number.rawValue - 1)!
+    self.name = switch cMajorFunction.number {
+    case .tonic: .c
+    case .second: .d
+    case .third: .e
+    case .fourth: .f
+    case .fifth: .g
+    case .sixth: .a
+    case .seventh: .b
+    }
     self.accidental = cMajorFunction.accidental
   }
 
@@ -35,11 +45,11 @@ fileprivate extension Accidental {
   var interval: Interval {
     switch self {
     case .flattened(let times):
-        .unison(.diminished(times: times))
+      .unison(.diminished(times: times))
     case .natural:
-        .unison(.perfect)
+      .unison(.perfect)
     case .sharpened(let times):
-        .unison(.augmented(times: times))
+      .unison(.augmented(times: times))
     }
   }
 }

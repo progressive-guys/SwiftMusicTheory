@@ -24,7 +24,8 @@ extension Temperament {
   }
 
   public func pitch(from pitch: Pitch, shiftedBySubdivisions: Int) -> Pitch {
-    let resultNoteIndex = chromaticScale.firstIndex(where: { $0.isEnharmonic(to: pitch.note) })! + shiftedBySubdivisions
+    guard let noteIndex = chromaticScale.firstIndex(where: { $0.isEnharmonic(to: pitch.note) }) else { return pitch }
+    let resultNoteIndex = noteIndex + shiftedBySubdivisions
     let note = chromaticScale[(resultNoteIndex + octaveSubdivisions) % octaveSubdivisions]
     let octave = pitch.octave.rawValue + Int(floor(Double(resultNoteIndex) / Double(octaveSubdivisions)))
 

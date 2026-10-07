@@ -181,7 +181,11 @@ extension Interval: AdditiveArithmetic {
     if let interval = Perfect(rawValue: diatonicIndex) {
       self = .perfect(interval, Perfect.Quality(semitonesCount - interval.baseSemitonesCount), octaves: octaves)
     } else {
-      let interval = Imperfect(rawValue: diatonicIndex)!
+      guard let interval = Imperfect(rawValue: diatonicIndex) else {
+        logWarning("Invalid diatonic interval index: \(diatonicIndex)")
+        self = .zero
+        return
+      }
       self = .imperfect(interval, Imperfect.Quality(semitonesCount - interval.baseSemitonesCount), octaves: octaves)
     }
   }

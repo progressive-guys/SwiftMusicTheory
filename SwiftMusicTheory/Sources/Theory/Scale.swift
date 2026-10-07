@@ -82,10 +82,11 @@ public struct Scale: Sendable {
     let intervals = formula.steps.map(\.interval)
     let degrees = formula.steps
       .enumerated()
-      .map { index, step in
+      .compactMap { index, step -> Degree? in
         let intervalFromRoot = formula.intervalsFromRoot[index]
+        guard let function = Formula.diatonic.chromaticFunction(at: intervalFromRoot) else { return nil }
         return Degree(
-          function: Formula.diatonic.chromaticFunction(at: intervalFromRoot)!,
+          function: function,
           shortName: step.shortName,
           modeNames: step.modeNames,
           intervalFromRoot: intervalFromRoot,
@@ -216,7 +217,7 @@ public extension Scale {
     public let accidental: Accidental
 
     fileprivate init(diatonicIndexNormilized: Int, accidental: Accidental) {
-      self.init(Number(rawValue: diatonicIndexNormilized)!, accidental)
+      self.init(Number.allCases[diatonicIndexNormilized - 1], accidental)
     }
 
     fileprivate init(_ number: Number, _ accidental: Accidental) {
