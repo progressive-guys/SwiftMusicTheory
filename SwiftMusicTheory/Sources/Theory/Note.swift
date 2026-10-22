@@ -22,12 +22,19 @@ public extension Note.Name {
   init?(_ string: String) {
     switch string.lowercased() {
     case "c": self = .c
+
     case "d": self = .d
+
     case "e": self = .e
+
     case "f": self = .f
+
     case "g": self = .g
+
     case "a": self = .a
+
     case "b": self = .b
+
     default: return nil
     }
   }
@@ -86,11 +93,17 @@ fileprivate extension Note.Name {
   var title: String {
     switch self {
     case .c: return "C"
+
     case .d: return "D"
+
     case .e: return "E"
+
     case .f: return "F"
+
     case .g: return "G"
+
     case .a: return "A"
+
     case .b: return "B"
     }
   }
@@ -109,12 +122,19 @@ extension Note.Name: Codable {
     let title = try container.decode(String.self)
     switch title.lowercased() {
     case "c": self = .c
+
     case "d": self = .d
+
     case "e": self = .e
+
     case "f": self = .f
+
     case "g": self = .g
+
     case "a": self = .a
+
     case "b": self = .b
+
     default:
       throw DecodingError.dataCorruptedError(
         in: container,

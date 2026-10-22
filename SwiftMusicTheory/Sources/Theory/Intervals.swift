@@ -18,6 +18,7 @@ public extension Interval {
     switch self {
     case .perfect(let interval, let quality, _):
       return .perfect(interval, quality, octaves: octaves)
+
     case .imperfect(let interval, let quality, _):
       return .imperfect(interval, quality, octaves: octaves)
     }
@@ -67,6 +68,7 @@ extension Interval {
     switch self {
     case .perfect(let perfect, let quality, let octaves):
       perfect.baseSemitonesCount + quality.semitonesDifference + (includingOctaves ? octaves * Interval.Perfect.octave.baseSemitonesCount : 0)
+
     case .imperfect(let imperfect, let quality, let octaves):
       imperfect.baseSemitonesCount + quality.semitonesDifference + (includingOctaves ? octaves * Interval.Perfect.octave.baseSemitonesCount : 0)
     }
@@ -76,6 +78,7 @@ extension Interval {
     switch self {
     case .perfect(let interval, _, _):
       interval.rawValue + octaves * Imperfect.seventh.rawValue
+
     case .imperfect(let interval, _, _):
       interval.rawValue + octaves * Imperfect.seventh.rawValue
     }
@@ -88,6 +91,7 @@ extension Interval {
   public var octaves: Int {
     switch self {
     case .perfect(_, _, let octaves): octaves
+
     case .imperfect(_, _, let octaves): octaves
     }
   }
@@ -98,8 +102,11 @@ extension Interval.Perfect {
   fileprivate var baseSemitonesCount: Int {
     switch self {
     case .unison: 0
+
     case .fourth: 5
+
     case .fifth: 7
+
     case .octave: 12
     }
   }
@@ -110,8 +117,11 @@ extension Interval.Imperfect {
   fileprivate var baseSemitonesCount: Int {
     switch self {
     case .second: 2
+
     case .third: 4
+
     case .sixth: 9
+
     case .seventh: 11
     }
   }
@@ -123,8 +133,10 @@ extension Interval.Perfect.Quality {
     switch semitonesDifference {
     case 0:
       self = .perfect
+
     case (..<0):
       self = .diminished(times: abs(semitonesDifference))
+
     default:
       self = .augmented(times: semitonesDifference)
     }
@@ -134,8 +146,10 @@ extension Interval.Perfect.Quality {
     switch self {
     case .perfect:
       return 0
+
     case .diminished(let times):
       return -times
+
     case .augmented(let times):
       return times
     }
@@ -148,10 +162,13 @@ extension Interval.Imperfect.Quality {
     switch semitonesDifference {
     case 0:
       self = .major
+
     case -1:
       self = .minor
+
     case (1...):
       self = .augmented(times: semitonesDifference)
+
     default:
       self = .diminished(times: abs(semitonesDifference + 1))
     }
@@ -161,10 +178,13 @@ extension Interval.Imperfect.Quality {
     switch self {
     case .major:
       return 0
+
     case .minor:
       return -1
+
     case .diminished(let times):
       return -1 - times
+
     case .augmented(let times):
       return times
     }

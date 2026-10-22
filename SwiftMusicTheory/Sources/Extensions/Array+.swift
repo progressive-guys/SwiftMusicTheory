@@ -22,7 +22,9 @@ public enum VerticalDirection: Int {
   public var oppsite: VerticalDirection {
     switch self {
     case .up: .down
+
     case .same: .same
+
     case .down: .up
     }
   }
@@ -73,6 +75,7 @@ public extension Array {
     case .left:
       shifted = self.removeFirst(elementsCount: amount)
       self.append(contentsOf: shifted)
+
     case .right:
       shifted = self.removeLast(elementsCount: amount)
       self.insert(contentsOf: shifted, at: 0)

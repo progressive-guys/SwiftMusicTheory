@@ -243,11 +243,17 @@ fileprivate extension Scale.Function.Number {
   var romanicNumber: String {
     switch self {
     case .tonic: "I"
+
     case .second: "II"
+
     case .third: "III"
+
     case .fourth: "IV"
+
     case .fifth: "V"
+
     case .sixth: "VI"
+
     case .seventh: "VII"
     }
   }
@@ -268,14 +274,17 @@ extension Scale.Degree {
     case .augmented:
       result += "+"
       fallthrough
+
     case .major:
       result.uppercase()
 
     case .diminished:
       result += "°"
       fallthrough
+
     case .minor:
       result.lowercase()
+
     case nil:
       return ""
     }

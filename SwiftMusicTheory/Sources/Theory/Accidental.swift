@@ -8,12 +8,16 @@ public enum Accidental: Sendable, Codable {
     switch self {
     case .flattened(let times) where times == 2:
       "𝄫"
+
     case .flattened(let times):
       "♭".repeating(times: times)
+
     case .natural:
       ""
+
     case .sharpened(let times) where times == 2:
       "𝄪"
+
     case .sharpened(let times):
       "♯".repeating(times: times)
     }
@@ -26,8 +30,10 @@ public enum Accidental: Sendable, Codable {
     switch semitonesDifference {
     case 0:
       self = .natural
+
     case (..<0):
       self = .flattened(times: abs(semitonesDifference))
+
     default:
       self = .sharpened(times: semitonesDifference)
     }
@@ -37,8 +43,10 @@ public enum Accidental: Sendable, Codable {
     switch self {
     case .sharpened(let times):
       times
+
     case .flattened(let times):
       -times
+
     case .natural:
       0
     }

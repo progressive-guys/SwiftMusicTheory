@@ -15,6 +15,7 @@ extension Interval {
     switch self {
     case .perfect(let interval, _, _):
       return interval.name
+
     case .imperfect(let interval, _, _):
       return interval.name
     }
@@ -31,6 +32,7 @@ extension Interval: IntervalQuality {
   fileprivate var quality: IntervalQuality {
     switch self {
     case .perfect(_, let quality, _): quality
+
     case .imperfect(_, let quality, _): quality
     }
   }
@@ -41,8 +43,11 @@ public extension Interval.Perfect {
   var name: String {
     switch self {
     case .unison: return "unison"
+
     case .fourth: return "fourth"
+
     case .fifth: return "fifth"
+
     case .octave: return "octave"
     }
   }
@@ -53,8 +58,11 @@ public extension Interval.Imperfect {
   var name: String {
     switch self {
     case .second: return "second"
+
     case .third: return "third"
+
     case .sixth: return "sixth"
+
     case .seventh: return "seventh"
     }
   }
@@ -66,8 +74,10 @@ extension Interval.Perfect.Quality: IntervalQuality {
     switch self {
     case .perfect:
       return "perfect"
+
     case .diminished(let times):
       return "\(times.qualityAdverb)diminished"
+
     case .augmented(let times):
       return "\(times.qualityAdverb)augmented"
     }
@@ -77,8 +87,10 @@ extension Interval.Perfect.Quality: IntervalQuality {
     switch self {
     case .perfect:
       return "P"
+
     case .diminished(let times):
       return "d".repeating(times: times)
+
     case .augmented(let times):
       return "A".repeating(times: times)
     }
@@ -91,10 +103,13 @@ extension Interval.Imperfect.Quality: IntervalQuality {
     switch self {
     case .major:
       return "major"
+
     case .minor:
       return "minor"
+
     case .diminished(let times):
       return "\(times.qualityAdverb)diminished"
+
     case .augmented(let times):
       return "\(times.qualityAdverb)augmented"
     }
@@ -104,10 +119,13 @@ extension Interval.Imperfect.Quality: IntervalQuality {
     switch self {
     case .major:
       return "M"
+
     case .minor:
       return "m"
+
     case .diminished(let times):
       return "d".repeating(times: times)
+
     case .augmented(let times):
       return "A".repeating(times: times)
     }
@@ -119,10 +137,13 @@ fileprivate extension Int {
     switch self {
     case 1:
       return ""
+
     case 2:
       return "Double "
+
     case 3:
       return "Triple "
+
     default:
       logWarning("Are tou sure you using \(self) times diminished or augmented interval?")
       return "\(self) times "
