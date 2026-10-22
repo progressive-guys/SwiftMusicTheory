@@ -8,6 +8,7 @@ public extension StringInstrument {
 
     public init?(rawValue: Int) {
       guard rawValue >= 0 else { return nil }
+
       self.rawValue = rawValue
     }
 
@@ -19,7 +20,10 @@ public extension StringInstrument {
       let container = try decoder.singleValueContainer()
       let rawValue = try container.decode(Int.self)
       guard let value = Self(rawValue: rawValue) else {
-        throw DecodingError.dataCorruptedError(in: container, debugDescription: "String index must be non-negative")
+        throw DecodingError.dataCorruptedError(
+          in: container,
+          debugDescription: "String index must be non-negative"
+        )
       }
       self = value
     }
@@ -36,6 +40,10 @@ public extension StringInstrument {
 
   func pitch(at position: Position) -> Pitch? {
     guard contains(position.stringIndex) else { return nil }
-    return temperament.pitch(from: tuning[position.stringIndex.rawValue], shiftedBySubdivisions: position.fret)
+
+    return temperament.pitch(
+      from: tuning[position.stringIndex.rawValue],
+      shiftedBySubdivisions: position.fret
+    )
   }
 }

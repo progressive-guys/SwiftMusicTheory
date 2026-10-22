@@ -145,7 +145,7 @@ fileprivate extension Int {
       return "Triple "
 
     default:
-      logWarning("Are tou sure you using \(self) times diminished or augmented interval?")
+      TheoryLog.warning("Are tou sure you using \(self) times diminished or augmented interval?")
       return "\(self) times "
     }
   }

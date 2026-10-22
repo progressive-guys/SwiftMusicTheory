@@ -85,7 +85,10 @@ public extension Scale {
       Formula.Step(.second(.major), "Hungarian"),
       Formula.Step(.second(.minor), "Oriental"),
       Formula.Step(.second(.augmented()), "Ionian \(Accidental.sharp)2 \(Accidental.sharp)5"),
-      Formula.Step(.second(.minor), "Loc \(Accidental.flattened(times: 2))3 \(Accidental.flattened(times: 2))7")
+      Formula.Step(
+        .second(.minor),
+        "Loc \(Accidental.flattened(times: 2))3 \(Accidental.flattened(times: 2))7"
+      )
     ])
   )
 

@@ -14,7 +14,11 @@ public struct EqualTemperament: Temperament {
     let relativePitch = try container.decode(Pitch.self, forKey: .relativePitch)
     let octaveSubdivisions = try container.decode(Int.self, forKey: .octaveSubdivisions)
 
-    self.init(relativeFrequency: relativeFrequency, relativePitch: relativePitch, octaveSubdivisions: octaveSubdivisions)
+    self.init(
+      relativeFrequency: relativeFrequency,
+      relativePitch: relativePitch,
+      octaveSubdivisions: octaveSubdivisions
+    )
   }
 
   public var chromaticScale: [Note] {
@@ -51,8 +55,9 @@ public struct EqualTemperament: Temperament {
 
     let semitonesDistance = round(distance)
 
-    let octavesDistance = ((Double(relativePitch.note.semitonesNormalized) + semitonesDistance) / Double(octaveSubdivisions)).rounded(.down)
-    let notesDistance = relativePitch.note.semitonesNormalized + Int(semitonesDistance) - Int(octavesDistance) * octaveSubdivisions
+    let relativeSemitones = relativePitch.note.semitonesNormalized
+    let octavesDistance = ((Double(relativeSemitones) + semitonesDistance) / Double(octaveSubdivisions)).rounded(.down)
+    let notesDistance = relativeSemitones + Int(semitonesDistance) - Int(octavesDistance) * octaveSubdivisions
     let centsDistance = Int(((distance - semitonesDistance) * 100).rounded()) + relativePitch.cents
 
     let resultingNote = chromaticScale[notesDistance % octaveSubdivisions]

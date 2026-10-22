@@ -67,10 +67,14 @@ extension Interval {
   public func semitonesCount(includingOctaves: Bool = false) -> Int {
     switch self {
     case .perfect(let perfect, let quality, let octaves):
-      perfect.baseSemitonesCount + quality.semitonesDifference + (includingOctaves ? octaves * Interval.Perfect.octave.baseSemitonesCount : 0)
+      perfect.baseSemitonesCount + quality.semitonesDifference + (includingOctaves
+        ? octaves * Interval.Perfect.octave.baseSemitonesCount
+        : 0)
 
     case .imperfect(let imperfect, let quality, let octaves):
-      imperfect.baseSemitonesCount + quality.semitonesDifference + (includingOctaves ? octaves * Interval.Perfect.octave.baseSemitonesCount : 0)
+      imperfect.baseSemitonesCount + quality.semitonesDifference + (includingOctaves
+        ? octaves * Interval.Perfect.octave.baseSemitonesCount
+        : 0)
     }
   }
 
@@ -199,21 +203,31 @@ extension Interval: AdditiveArithmetic {
     let semitonesCount = semitones - octaves * Interval.octave().semitonesCount()
 
     if let interval = Perfect(rawValue: diatonicIndex) {
-      self = .perfect(interval, Perfect.Quality(semitonesCount - interval.baseSemitonesCount), octaves: octaves)
+      self = .perfect(
+        interval,
+        Perfect.Quality(semitonesCount - interval.baseSemitonesCount),
+        octaves: octaves
+      )
     } else {
       guard let interval = Imperfect(rawValue: diatonicIndex) else {
-        logWarning("Invalid diatonic interval index: \(diatonicIndex)")
+        TheoryLog.warning("Invalid diatonic interval index: \(diatonicIndex)")
         self = .zero
         return
       }
-      self = .imperfect(interval, Imperfect.Quality(semitonesCount - interval.baseSemitonesCount), octaves: octaves)
+      self = .imperfect(
+        interval,
+        Imperfect.Quality(semitonesCount - interval.baseSemitonesCount),
+        octaves: octaves
+      )
     }
   }
 
   public static func - (lhs: Interval, rhs: Interval) -> Interval {
     Interval(
       diatonicIndex: abs(lhs.diatonicIndex - rhs.diatonicIndex) + 1,
-      semitones: abs(lhs.semitonesCount(includingOctaves: true) - rhs.semitonesCount(includingOctaves: true))
+      semitones: abs(
+        lhs.semitonesCount(includingOctaves: true) - rhs.semitonesCount(includingOctaves: true)
+      )
     )
   }
 
@@ -233,6 +247,6 @@ extension Interval: Equatable {
   public static func == (lhs: Interval, rhs: Interval) -> Bool {
     // We take module here because we suppose that diminished unison == augmented unison as intervals count from the bottom note
     abs(lhs.semitonesCount(includingOctaves: true)) == abs(rhs.semitonesCount(includingOctaves: true)) &&
-    lhs.diatonicIndexNormilized == rhs.diatonicIndexNormilized
+      lhs.diatonicIndexNormilized == rhs.diatonicIndexNormilized
   }
 }

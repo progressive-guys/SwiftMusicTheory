@@ -45,7 +45,7 @@ public struct Mode: Sendable {
     guard
       let noteIndex = notes.firstIndex(of: note)
     else {
-      logWarning("There is no \(note) in \(self)")
+      TheoryLog.warning("There is no \(note) in \(self)")
       return nil
     }
 
@@ -54,7 +54,7 @@ public struct Mode: Sendable {
 
   public func degree(under note: Note) -> Scale.Degree? {
     guard let noteIndex = notes.firstIndex(of: note) else {
-      logWarning("There is no \(note) in \(self)")
+      TheoryLog.warning("There is no \(note) in \(self)")
       return nil
     }
 

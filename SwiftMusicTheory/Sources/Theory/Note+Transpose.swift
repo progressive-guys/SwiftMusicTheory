@@ -9,9 +9,12 @@ extension Note {
   }
 
   public func transposed(by interval: Interval, direction: VerticalDirection = .up) -> Note {
-    guard let cMajorRalativeFunction = Scale.diatonic.chromaticFunction(
-      at: diatonicInterval + (direction == .up ? interval : interval.inverted)
-    ) else { return self }
+    guard
+      let cMajorRalativeFunction = Scale.diatonic.chromaticFunction(
+        at: diatonicInterval + (direction == .up ? interval : interval.inverted)
+      )
+    else { return self }
+
     return Note(from: cMajorRalativeFunction)
   }
 
@@ -37,14 +40,14 @@ extension Note {
   private var diatonicInterval: Interval {
     Scale.diatonic.degrees[name.rawValue].intervalFromRoot + accidental.interval
   }
-}
 
-public func + (note: Note, interval: Interval) -> Note {
-  note.transposed(by: interval)
-}
+  public static func + (note: Note, interval: Interval) -> Note {
+    note.transposed(by: interval)
+  }
 
-public func - (note: Note, interval: Interval) -> Note {
-  note.transposed(by: interval, direction: .down)
+  public static func - (note: Note, interval: Interval) -> Note {
+    note.transposed(by: interval, direction: .down)
+  }
 }
 
 fileprivate extension Accidental {
@@ -60,6 +63,7 @@ fileprivate extension Accidental {
       .unison(.augmented(times: times))
     }
   }
+
 }
 
 extension Note {
@@ -67,7 +71,7 @@ extension Note {
     var notes = [self]
     for noteIndex in (1..<length) {
       notes.append(notes[noteIndex - 1] + intervalToMove)
-      }
+    }
     return notes
   }
 }

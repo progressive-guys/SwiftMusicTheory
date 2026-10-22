@@ -30,9 +30,7 @@ public enum VerticalDirection: Int {
   }
 
   public func isTurningPoint(to next: Self) -> Bool {
-    guard self != .same, next != .same else {
-      return false
-    }
+    guard self != .same, next != .same else { return false }
 
     return self == next.oppsite
   }
@@ -102,6 +100,7 @@ public extension Array {
 public extension Array {
   func batched(by batchSize: Int) -> [[Element]] {
     guard batchSize > 0 else { return [self] }
+
     var result: [[Element]] = []
     var currentBatch: [Element] = []
 

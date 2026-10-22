@@ -21,7 +21,7 @@ public extension Scale {
       let intervals = steps.map(\.interval)
 
       if !intervals.isOctaveWide {
-        logWarning("Scale must be an octave wide: \(intervals)")
+        TheoryLog.warning("Scale must be an octave wide: \(intervals)")
       }
 
       self.intervalsFromRoot = intervals
@@ -85,6 +85,7 @@ public struct Scale: Sendable {
       .compactMap { index, step -> Degree? in
         let intervalFromRoot = formula.intervalsFromRoot[index]
         guard let function = Formula.diatonic.chromaticFunction(at: intervalFromRoot) else { return nil }
+
         return Degree(
           function: function,
           shortName: step.shortName,
@@ -117,7 +118,7 @@ public extension Scale {
   /// - Returns: Scale started from the degree of the function. Nil, in case when scale does not contain specified function.
   func scale(placedOn function: Function) -> Scale? {
     guard let functionIndex = functions.firstIndex(of: function) else {
-      logWarning("There is no \(function) in \(self.name). Functions: \(functions)")
+      TheoryLog.warning("There is no \(function) in \(self.name). Functions: \(functions)")
       return nil
     }
 
@@ -142,7 +143,7 @@ public extension Scale {
     formula.intervalsFromRoot
       .compactMap { interval -> Scale.Function? in
         guard let degree = comparative.chromaticFunction(at: interval) else {
-          logWarning("There is no relative degree for: \(interval) in comparative scale: \(comparative))")
+          TheoryLog.warning("There is no relative degree for: \(interval) in comparative scale: \(comparative))")
           return nil
         }
 
@@ -176,9 +177,17 @@ fileprivate extension Array where Element == Interval {
 
 fileprivate extension Scale.Formula {
   func chromaticFunction(at interval: Interval) -> Scale.Function? {
-    guard let relativeInterval = intervalsFromRoot
-      .first(where: { $0.diatonicIndexNormilized == interval.diatonicIndexNormilized }) else {
-      logWarning("There is no degree at interval: \(interval). Looks, like you trying to get skipped degree in pentatonic or hexatonic")
+    guard
+      let relativeInterval = intervalsFromRoot
+        .first(where: { $0.diatonicIndexNormilized == interval.diatonicIndexNormilized })
+    else {
+      TheoryLog.warning(
+        // swiftlint:disable:next line_length
+        """
+        There is no degree at interval: \(interval). Looks, like you trying to get skipped degree in pentatonic or \
+        hexatonic
+        """
+      )
       return nil
     }
 
