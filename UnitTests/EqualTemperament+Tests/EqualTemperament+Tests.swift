@@ -4,7 +4,7 @@ import Foundation
 
 final class EqualTemperamentTests: XCTestCase {
 
-  let temperment = EqualTemperament._12ET440
+  let temperment = EqualTemperament.twelveTone440
 
   func testFreqiencies() throws {
     let cases: [(Pitch, Double)] = [

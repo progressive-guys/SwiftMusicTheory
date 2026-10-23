@@ -69,5 +69,5 @@ public struct EqualTemperament: Temperament {
 }
 
 public extension EqualTemperament {
-  static let _12ET440 = EqualTemperament()
+  static let twelveTone440 = EqualTemperament()
 }

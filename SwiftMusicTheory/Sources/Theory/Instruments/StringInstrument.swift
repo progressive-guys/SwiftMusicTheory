@@ -12,7 +12,7 @@ public struct StringInstrument: MusicalInstrument {
 
   public init(
     tuning: Tuning = .standard6String,
-    temperament: EqualTemperament = EqualTemperament._12ET440,
+    temperament: EqualTemperament = EqualTemperament.twelveTone440,
     fretsCount: Int = 24
   ) {
     self.tuning = tuning
