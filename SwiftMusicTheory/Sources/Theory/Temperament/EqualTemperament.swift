@@ -44,7 +44,9 @@ public struct EqualTemperament: Temperament {
 
   public func tone(for pitch: Pitch) -> Tone {
     let octavesDistance = Double(pitch.octave.rawValue - relativePitch.octave.rawValue)
-    let notesDistance = Double(pitch.note.semitonesNormalized - relativePitch.note.semitonesNormalized) / Double(octaveSubdivisions)
+    let notesDistance = Double(
+      pitch.note.semitonesNormalized - relativePitch.note.semitonesNormalized
+    ) / Double(octaveSubdivisions)
     let centsDistance = Double(pitch.cents - relativePitch.cents) / Double(octaveSubdivisions * 100)
     let frequency = relativeFrequency * pow(2, octavesDistance + notesDistance + centsDistance)
     return Tone(pitch: pitch, frequency: frequency)
