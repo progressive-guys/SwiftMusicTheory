@@ -27,15 +27,17 @@ https://github.com/modality-lab/SwiftMusicTheory.git
 
 ## Tuist
 
-Run from the module directory:
+Use Xcode with Swift 6.4 or later and mise. From a standalone checkout:
 
 ```sh
-tuist generate --no-open
+mise install
+mise exec -- tuist install
+mise exec -- tuist generate --no-open
 ```
 
-The local `SwiftMusicTheoryProjectDescription` plugin owns the targets and test groups. The main workspace reads these groups for its test schemes. The standalone project uses the default Tuist build settings. The main repository supplies its build settings, local paths and project dependencies.
+`Project.swift` declares the native library and test targets. Keep its sources, resources and dependencies consistent with `Package.swift`. The `ModalityBuild` plugin comes from `ModalityCore/SwiftStyle` and runs the shared checks before compilation. All consumers select the same fixed Git commit of the plugin.
 
-For local signing, add `DEVELOPMENT_TEAM = your_team_id` to `Configuration/Signing.local.xcconfig`. Git ignores this file.
+Package products are the default dependencies. A consumer can set `TUIST_LOCAL_PROJECTS_ROOT` to select its directory of local projects. Standalone checkouts leave this option unset. SwiftPM remains available through `Package.swift`.
 
 # **Features**
 This library provides an easy-to-use interfaces for developers to integrate music theory into their Swift applications. These features provide a robust foundation for working with music theory concepts in Swift.
