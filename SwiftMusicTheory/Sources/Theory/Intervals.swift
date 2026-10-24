@@ -95,7 +95,6 @@ extension Interval {
   public var octaves: Int {
     switch self {
     case .perfect(_, _, let octaves): octaves
-
     case .imperfect(_, _, let octaves): octaves
     }
   }
@@ -106,11 +105,8 @@ extension Interval.Perfect {
   fileprivate var baseSemitonesCount: Int {
     switch self {
     case .unison: 0
-
     case .fourth: 5
-
     case .fifth: 7
-
     case .octave: 12
     }
   }
@@ -121,11 +117,8 @@ extension Interval.Imperfect {
   fileprivate var baseSemitonesCount: Int {
     switch self {
     case .second: 2
-
     case .third: 4
-
     case .sixth: 9
-
     case .seventh: 11
     }
   }

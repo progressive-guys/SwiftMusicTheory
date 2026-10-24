@@ -22,9 +22,7 @@ public enum VerticalDirection: Int {
   public var oppsite: VerticalDirection {
     switch self {
     case .up: .down
-
     case .same: .same
-
     case .down: .up
     }
   }

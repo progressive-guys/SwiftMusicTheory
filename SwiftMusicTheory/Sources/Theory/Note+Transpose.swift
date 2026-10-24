@@ -21,17 +21,11 @@ extension Note {
   private init(from cMajorFunction: Scale.Function) {
     self.name = switch cMajorFunction.number {
     case .tonic: .c
-
     case .second: .d
-
     case .third: .e
-
     case .fourth: .f
-
     case .fifth: .g
-
     case .sixth: .a
-
     case .seventh: .b
     }
     self.accidental = cMajorFunction.accidental

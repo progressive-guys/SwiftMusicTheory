@@ -32,7 +32,6 @@ extension Interval: IntervalQuality {
   fileprivate var quality: IntervalQuality {
     switch self {
     case .perfect(_, let quality, _): quality
-
     case .imperfect(_, let quality, _): quality
     }
   }
@@ -43,11 +42,8 @@ public extension Interval.Perfect {
   var name: String {
     switch self {
     case .unison: return "unison"
-
     case .fourth: return "fourth"
-
     case .fifth: return "fifth"
-
     case .octave: return "octave"
     }
   }
@@ -58,11 +54,8 @@ public extension Interval.Imperfect {
   var name: String {
     switch self {
     case .second: return "second"
-
     case .third: return "third"
-
     case .sixth: return "sixth"
-
     case .seventh: return "seventh"
     }
   }

@@ -252,17 +252,11 @@ fileprivate extension Scale.Function.Number {
   var romanicNumber: String {
     switch self {
     case .tonic: "I"
-
     case .second: "II"
-
     case .third: "III"
-
     case .fourth: "IV"
-
     case .fifth: "V"
-
     case .sixth: "VI"
-
     case .seventh: "VII"
     }
   }
